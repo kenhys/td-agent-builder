@@ -20,6 +20,8 @@ describe "gem files" do
   lock_path = File.join(File.dirname(File.dirname(File.dirname(__FILE__))),
                         "gemfiles/linux/Gemfile.lock")
   p lock_path
+  p Bundler.read_file(lock_path)
+  p Bundler::LockfileParser
   parser = Bundler::LockfileParser.new(Bundler.read_file(lock_path))
   parser.specs.each do |spec|
     describe package("#{spec.name}") do
