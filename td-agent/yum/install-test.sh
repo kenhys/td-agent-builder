@@ -126,5 +126,5 @@ EOF
     /usr/sbin/td-agent -c /fluentd/serverspec/test.conf &
     export PATH=/opt/td-agent/bin:$PATH
     export INSTALLATION_TEST=true
-    cd /fluentd && rake -T && rm -fr .bundle && rake serverspec:linux
+    cd /fluentd && rake -T && rake serverspec:linux
 fi
