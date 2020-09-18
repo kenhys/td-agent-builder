@@ -17,7 +17,8 @@ jobs:
     - env: RAKE_TASK="yum:build" YUM_TARGETS="amazonlinux-2" ARCHIVE_BASE="amazonlinux-2" PACKAGE_SYSTEM=yum
 
 before_install:
-  - bundle install --gemfile=gemfiles/linux/Gemfile
+  - gem install bundler -v 2.2.0.rc.1
+  - bundle install --gemfile=td-agent/Gemfile
 script:
   - travis_retry rake $RAKE_TASK
 before_deploy:
