@@ -4,21 +4,13 @@ dist: bionic
 arch: arm64
 services:
   - docker
+# FIXME: Skip test cases until activesupport 6.1 release (tzinfo 2.x and 1.x conflicts)
 jobs:
-  - env: RAKE_TASK="apt:build" APT_TARGETS="debian-buster" ARCHIVE_BASE="debian-buster" PACKAGE_SYSTEM=apt
-  - env: RAKE_TASK="apt:build" APT_TARGETS="ubuntu-bionic" ARCHIVE_BASE="ubuntu-bionic" PACKAGE_SYSTEM=apt
-  # FIXME: Ubuntu focal's lintian will be stuck on arm64.
-  # see: https://github.com/fluent-plugins-nursery/td-agent-builder/issues/65
-  - env: RAKE_TASK="apt:build" APT_TARGETS="ubuntu-focal" ARCHIVE_BASE="ubuntu-focal" PACKAGE_SYSTEM=apt LINTIAN=no
-  - env: RAKE_TASK="yum:build" YUM_TARGETS="centos-7" ARCHIVE_BASE="centos-7" PACKAGE_SYSTEM=yum
-  - env: RAKE_TASK="yum:build" YUM_TARGETS="centos-8" ARCHIVE_BASE="centos-8" PACKAGE_SYSTEM=yum
-  - env: RAKE_TASK="yum:build" YUM_TARGETS="amazonlinux-2" ARCHIVE_BASE="amazonlinux-2" PACKAGE_SYSTEM=yum
-
-matrix:
   exclude:
-    # FIXME: Skip test cases until activesupport 6.1 release (tzinfo 2.x and 1.x conflicts)
     - env: RAKE_TASK="apt:build" APT_TARGETS="debian-buster" ARCHIVE_BASE="debian-buster" PACKAGE_SYSTEM=apt
     - env: RAKE_TASK="apt:build" APT_TARGETS="ubuntu-bionic" ARCHIVE_BASE="ubuntu-bionic" PACKAGE_SYSTEM=apt
+    # FIXME: Ubuntu focal's lintian will be stuck on arm64.
+    # see: https://github.com/fluent-plugins-nursery/td-agent-builder/issues/65
     - env: RAKE_TASK="apt:build" APT_TARGETS="ubuntu-focal" ARCHIVE_BASE="ubuntu-focal" PACKAGE_SYSTEM=apt LINTIAN=no
     - env: RAKE_TASK="yum:build" YUM_TARGETS="centos-7" ARCHIVE_BASE="centos-7" PACKAGE_SYSTEM=yum
     - env: RAKE_TASK="yum:build" YUM_TARGETS="centos-8" ARCHIVE_BASE="centos-8" PACKAGE_SYSTEM=yum
