@@ -6,7 +6,7 @@ services:
   - docker
 # FIXME: Skip test cases until activesupport 6.1 release (tzinfo 2.x and 1.x conflicts)
 jobs:
-  exclude:
+  allow_failures:
     - env: RAKE_TASK="apt:build" APT_TARGETS="debian-buster" ARCHIVE_BASE="debian-buster" PACKAGE_SYSTEM=apt
     - env: RAKE_TASK="apt:build" APT_TARGETS="ubuntu-bionic" ARCHIVE_BASE="ubuntu-bionic" PACKAGE_SYSTEM=apt
     # FIXME: Ubuntu focal's lintian will be stuck on arm64.
