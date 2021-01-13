@@ -83,7 +83,6 @@ EOF
 	#echo "4lw.commands.whitelist=*" | tee -a /etc/kafka/zookeeper.properties
 	tail /etc/kafka/zookeeper.properties
 	export KAFKA_OPTS=-Dzookeeper.4lw.commands.whitelist=ruok
-	systemctl status confluent-zookeeper.service
 	/usr/bin/zookeeper-server-start /etc/kafka/zookeeper.properties  &
 	n=1
         while true ; do
