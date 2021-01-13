@@ -80,7 +80,10 @@ gpgkey=https://packages.confluent.io/rpm/6.0/archive.key
 enabled=1
 EOF
 	yum update -y && yum install -y confluent-community-2.13 ${JAVA_JRE} nc
+	echo "4lw.commands.whitelist=*" | tee -a /etc/kafka/zookeeper.properties
+	tail /etc/kafka/zookeeper.properties
 	export KAFKA_OPTS=-Dzookeeper.4lw.commands.whitelist=ruok
+	systemctl status confluent-zookeeper.service
 	/usr/bin/zookeeper-server-start /etc/kafka/zookeeper.properties  &
 	n=1
         while true ; do
