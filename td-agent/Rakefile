@@ -1073,7 +1073,7 @@ EOS
     # because many gem files are bundled with td-agent package.
     # We use gem specification GEMFILE to solve this issue.
     paths = []
-    command = "bundle config set --local cache_path #{DOWNLOADS_DIR}"
+    command = "bundle _#{BUNDLER_VERSION}_ config set --local cache_path #{DOWNLOADS_DIR}"
     output, error, status = Open3.capture3(command)
     unless status.success?
       fail "Failed to set cache_path: <#{command}> (stdout: #{output}, stderr: #{error})"
