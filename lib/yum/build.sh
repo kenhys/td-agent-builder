@@ -33,14 +33,21 @@ rpmbuild_options=
 
 . /host/env.sh
 
-distribution=$(cut -d " " -f 1 /etc/system-release | tr "A-Z" "a-z")
-if grep -q Linux /etc/system-release; then
-  distribution_version=$(cut -d " " -f 4 /etc/system-release)
-elif grep -q Stream /etc/system-release; then
+. /etc/os-release
+case $ID in
+  amzn)
+    # The ID is translated for repository layout
+    distribution=amazon
+    ;;
+  *)
+    distribution=$ID
+    ;;
+esac
+if grep -q Stream /etc/os-release; then
   # ${version}-stream
-  distribution_version=$(cut -d " " -f 4 /etc/system-release)-$(cut -d " " -f 2 /etc/system-release | tr "[:upper:]" "[:lower:]")
+  distribution_version="${VERSION_ID}-stream"
 else
-  distribution_version=$(cut -d " " -f 3 /etc/system-release)
+  distribution_version=$VERSION_ID
 fi
 distribution_version=$(echo ${distribution_version} | sed -e 's/\..*$//g')
 
